@@ -102,22 +102,17 @@ class pilot extends DB
 		}
 		else
 		{
-		    return $this->get_pages(array("ID" => $id))[0]['name'];
+		    return "CMS/".$this->get_pages(array("ID" => $id))[0]['image'];
 		}
 
 		
 	}
 	
-	public function get_id($id)
+	public function get_id()
 	{
-		if(!$id)
-		{
-	    	return $this->_the_page['ID'];
-	    }
-	    else
-	    {
-		    return false;
-	    }
+
+	    return $this->_the_page['ID'];
+
 	}
 	
 	public function get_main_language()
@@ -151,7 +146,7 @@ class pilot extends DB
 	    $reponse = $this->_db->prepare($sql);
 	    $reponse->execute();
 	    
-	    return $reponse->fetchAll()[0]['valeur'];
+	    return json_decode($reponse->fetchAll()[0]['valeur'], true);
 	}
 	
 	public function get_site_title()
@@ -481,6 +476,10 @@ class pilot extends DB
 	    }
 	    if($opt['ID'] != null)
 	    {
+		    if(!is_numeric($opt['ID']))
+		    {
+			    $opt['ID'] = $this->get_id_from_slug($opt['ID']);
+		    }
 	        $reponse->bindParam(":ID", $opt['ID']);
 	    }
 	    if($opt['keywords'] != null)
@@ -518,14 +517,14 @@ class pilot extends DB
 		        else
 		        {
 		            $imageKey = explode("<--->", $page['fileKeys']);
-		            
+		            $typeDeFichier = $imageKey;
 		            
 		            $imageKey = array_search($opt['image'], $imageKey);
 		            $images = explode("<--->", $page['files']);
 		            
 		            
 		            $page['image'] = "CMS/".$images[$imageKey];
-		            
+		            $page['type'] = $typeDeFichier[$imageKey];
 		        }
 			}
 			else
@@ -541,7 +540,7 @@ class pilot extends DB
 	        
 	        foreach($page["customFields"] as $key => $champsPerso)
 	        {
-	            if(file_exists("CMS/".$champsPerso))
+	            if(file_exists("CMS/".$champsPerso) AND $champsPerso != null)
 	            {
 	                $page['customFields'][$key] = "CMS/$champsPerso";
 	            }
