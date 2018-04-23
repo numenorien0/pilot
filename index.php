@@ -1,12 +1,11 @@
 <?php
+	//INIT VIEWS OF PILOT 2.Oh!
 ini_set('display_errors','off');
 error_reporting(E_ALL);
 	function __autoload($class_name) {
 		include_once "CMS/controleurs/".$class_name . ".class.php";
-		//echo $class_name;
 	}	
 
-    //echo $_GET['lang']."<<-->>".$_GET['f']."<br/><br/>";
     $pilot = new pilot();
     if(!$pilot->_the_page = $pilot->get_page($_GET['f']))
     {
