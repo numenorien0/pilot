@@ -2,11 +2,24 @@
 	ob_start();
 	$logo = "kindoo.svg";
 	$logoBlack = "kindoo-light.svg";
+	$size = "50%";
+	$margin = "30px";
 function translate($from_lan, $to_lan, $text){
     $json = json_decode(file_get_contents('https://translate.yandex.net/api/v1.5/tr.json/translate?key=trnsl.1.1.20161119T170438Z.9dd752e92c368855.756b63a63f048233e0b1fd1165c12edf764624f3&text=Salut%20%C3%A0%20tous&lang=en'));
     //print_r($json);
 
     
+}
+
+
+$fichierDB = file("db.conf");
+
+if($fichierDB[5] === "kindoo")
+{
+	$logo = "logoBlack.svg";
+	$size = "80%";
+	$logoBlack = "logoLight.svg";
+	$margin = "0px";
 }
 
 
