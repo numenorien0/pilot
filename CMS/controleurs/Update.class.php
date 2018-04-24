@@ -25,7 +25,8 @@ class Update extends DB
 
 	public function checkUpdate()
 	{
-		$fichierDeVersionGenerique = file_get_contents("http://www.ohmedias.pro/pilot.txt");
+		$fichierDeVersionGenerique = file_get_contents("https://raw.githubusercontent.com/numenorien0/pilot/master/CMS/version.txt");
+		//exit($fichierDeVersionGenerique);
 		$fichierDeNotreVersion = file_get_contents("version.txt");
 		if($fichierDeNotreVersion < $fichierDeVersionGenerique)
 		{
@@ -39,9 +40,16 @@ class Update extends DB
 
 	public function update()
 	{
-		$source = "http://ohmedias.pro/pilot.zip";
+		$source = "https://github.com/numenorien0/pilot/archive/master.zip";
 		$destination = "pilot.zip";
-		copy($source, $destination);
+		if(copy($source, $destination))
+		{
+			//exit("ok");
+		}
+		else
+		{
+			//exit("pas ok");
+		}
 
 		mkdir("extract_path");
 		$zip = new ZipArchive;
@@ -49,9 +57,9 @@ class Update extends DB
 		if ($res === TRUE) {
 		  $zip->extractTo("extract_path");
 		  $zip->close();
-		  $this->copy_dir("extract_path/", "../");
-		unlink("pilot.zip");
-		$this->effacer("extract_path");
+		  $this->copy_dir("extract_path/pilot-master/", "../");
+		  unlink("pilot.zip");
+		  $this->effacer("extract_path");
 			#header("location: update.php?updateDB=true");
 		} else {
 			echo "erreur";
