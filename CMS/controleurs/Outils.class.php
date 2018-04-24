@@ -108,8 +108,8 @@ class Outils extends DB
 						$version = "1.0";
 					}
 					$new_version = file_get_contents($elementAAfficher->checkVersionAt);
-					
-					if($version < $new_version)
+					//echo $version.$new_version."<br/>";
+					if(floatval($version) < floatval($new_version))
 					{
 						$update = "<a href='?update=$vue'>Mise à jour disponible !</a>";
 					}
