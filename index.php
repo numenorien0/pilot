@@ -1,5 +1,6 @@
 <?php
 	//INIT VIEWS OF PILOT 2.Oh!
+	//fatman
 ini_set('display_errors','off');
 error_reporting(E_ALL);
 	function __autoload($class_name) {
