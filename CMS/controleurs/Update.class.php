@@ -58,8 +58,8 @@ class Update extends DB
 		  $zip->extractTo("extract_path");
 		  $zip->close();
 		  $this->copy_dir("extract_path/pilot-master/", "../");
-		//unlink("pilot.zip");
-		//$this->effacer("extract_path");
+		  unlink("pilot.zip");
+		  $this->effacer("extract_path");
 			#header("location: update.php?updateDB=true");
 		} else {
 			echo "erreur";
