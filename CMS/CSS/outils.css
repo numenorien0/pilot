@@ -104,3 +104,7 @@
 	margin-bottom: 0px !important;
 	z-index: 10;
 }
+.toolsPadding a:hover
+{
+	text-decoration: none;
+}
