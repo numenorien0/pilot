@@ -8,12 +8,7 @@
 </head>
 <body>
 <div class='container-fluid'>
-	<div class='blackScreen'>
-	</div>
-	<div class='iframe'>
-	</div>
-	<div class='popup'>
-	</div>
+
 	<?php
 		include("includes/menu.php");
 	?>
