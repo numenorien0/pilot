@@ -38,7 +38,7 @@ class Outils extends DB
 		  $this->copy_dir("extract_path/$plugin-master/", "plugins/$plugin/");
 		  unlink("$plugin.zip");
 		  $this->effacer("extract_path");
-			//header("location: outils.php");
+			header("location: outils.php");
 		} else {
 			echo "erreur";
 		}
