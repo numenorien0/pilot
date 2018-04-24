@@ -295,7 +295,7 @@ class pilot extends DB
 	                $get = implode("&", $get);
 
 	                $return = file_get_contents("CMS/plugins/".$w["plugin"]."/widgets/".$w['id']);
-	                if(preg_match_all('/\$\_GET\[(.+)\]/', $return, $match))
+	                if(preg_match_all('/\$\_PLUGIN\[(.+)\]/', $return, $match))
 	                {
 	                    foreach($match[0] as $key => $valeurGet)
 	                    {
