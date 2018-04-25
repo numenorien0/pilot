@@ -25,6 +25,64 @@ class pilot extends DB
 	    
 	}
 	
+	
+	public function compressImage( $pathToImages, $thumbWidth ) 
+	{
+	    $info = pathinfo($pathToImages);
+	    
+	    if ( strpos(strtolower($info['extension']), "jpg") !== false OR strpos(strtolower($info['extension']), "jpeg") !== false) 
+	    {
+			
+			$img = imagecreatefromjpeg($pathToImages);
+			$width = imagesx( $img );
+			$height = imagesy( $img );
+	
+			$new_width = $thumbWidth;
+			$new_height = floor( $height * ( $thumbWidth / $width ) );
+
+			$tmp_img = imagecreatetruecolor( $new_width, $new_height );
+
+			imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+			
+			ob_start();
+
+			imagejpeg( $tmp_img, "php://output", 100);
+			
+			$image_data = ob_get_contents();
+			ob_end_clean();
+			$image_data = 'data:image/jpg;base64,'.base64_encode($image_data);
+			return $image_data;
+		      
+
+	    }
+	    if(strpos(strtolower($info['extension']), "png") !== false)
+	    {
+			$img = imagecreatefrompng($pathToImages);
+			$width = imagesx( $img );
+			$height = imagesy( $img );
+
+			$new_width = $thumbWidth;
+			$new_height = floor( $height * ( $thumbWidth / $width ) );
+			
+			$im = ImageCreateFromPNG($pathToImages);
+			
+			$im_dest = imagecreatetruecolor ($new_width, $new_height);
+			imagealphablending($im_dest, false);
+			
+			imagecopyresampled($im_dest, $im, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+			
+			imagesavealpha($im_dest, true);
+			ob_start();
+			imagepng($im_dest);
+			$image_data = ob_get_contents();
+			ob_end_clean();
+			$image_data = 'data:image/png;base64,'.base64_encode($image_data);
+			return $image_data;
+
+	    }
+	}
+	
+	
 	public function isConnected()
 	{
 		$trouve = false;
