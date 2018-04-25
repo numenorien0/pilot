@@ -165,7 +165,30 @@ $(function(){
     })
 });
 </script>
-
+	<script>
+	function parseJSONresponse(response, lang)
+{
+	var parsed;
+	//alert(response);
+	try{
+		parsed = $.parseJSON(response)[lang];
+		//alert($.parseJSON(response));
+	}
+	catch(e){
+		
+	}
+	
+	if(typeof parsed !== 'undefined')
+	{
+		return parsed;
+	}
+	else
+	{
+		return "";
+	}
+}
+	    
+	</script>
 <?php 
 // API SHORTCODE
 function add_shortcode($nom, $shortcode, $description)
