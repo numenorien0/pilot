@@ -30,21 +30,26 @@ class editMedias extends DB
 	      $width = imagesx( $img );
 	      $height = imagesy( $img );
 	
-		  if($width > 1920)
-		  {
-		      // calculate thumbnail size
-		      $new_width = $thumbWidth;
-		      $new_height = floor( $height * ( $thumbWidth / $width ) );
-		
-		      // create a new temporary image
-		      $tmp_img = imagecreatetruecolor( $new_width, $new_height );
-		
-		      // copy and resize old image into new image 
-		      imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
-		
-		      // save thumbnail into a file
-		      imagejpeg( $tmp_img, $pathToThumbs, 70);
-		   }
+			if($width > 1920)
+			{
+			  // calculate thumbnail size
+			  $new_width = $thumbWidth;
+			  $new_height = floor( $height * ( $thumbWidth / $width ) );
+			}
+			else
+			{
+				$new_width = $width;
+				$new_height = $height;
+			}
+			  // create a new temporary image
+			  $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+			
+			  // copy and resize old image into new image 
+			  imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $width, $height );
+			
+			  // save thumbnail into a file
+			  imagejpeg( $tmp_img, $pathToThumbs, 70);
+			
 	    }
 	    if(strtolower($info['extension']) == "png")
 	    {
@@ -52,10 +57,18 @@ class editMedias extends DB
 	      $width = imagesx( $img );
 	      $height = imagesy( $img );
 	
-		  if($width > 1920)
-		  {
-		      $new_width = $thumbWidth;
-		      $new_height = floor( $height * ( $thumbWidth / $width ) );
+		  	if($width > 1920)
+			{
+			  // calculate thumbnail size
+			  $new_width = $thumbWidth;
+			  $new_height = floor( $height * ( $thumbWidth / $width ) );
+			}
+			else
+			{
+				$new_width = $width;
+				$new_height = $height;
+			}
+		      
 		
 			  $im = ImageCreateFromPNG($pathToImages);
 
@@ -66,7 +79,7 @@ class editMedias extends DB
 				
 				imagesavealpha($im_dest, true);
 				imagepng($im_dest, $pathToThumbs);
-		  }
+		  
 	    }
 	}
 	public function convertPNGto8bitPNG($sourcePath, $destPath) {
