@@ -210,7 +210,7 @@ class Themes extends DB
 	                    $champs = $fileName;
 	                    //exit($champs);
 	                }
-	                $tableau[$cle] = array("value" => $champs, "categorie" => $key, "type" => $_POST['type'][$lang][$key][$cle]);
+	                $tableau[$cle] = array("value" => $champs, "categorie" => $key, "type" => $_POST['type'][$lang][$key][$cle], "label" => $_POST['label'][$lang][$key][$cle]);
 	                //echo $champs."<br/>";
 	            }
 	            
@@ -253,6 +253,10 @@ class Themes extends DB
 		        echo "<div class='cat'>";
 		        foreach($categories as $cle => $champs)
 		        {
+			        if(!isset($champs['label']) OR $champs['label'] == null)
+			        {
+				        $champs['label'] = $cle;
+			        }
 		            if($champs['type'] == "image")
 		            {
 			            if(strpos($this->get_filetype($file[$cle]['value']), "video") !== false)
@@ -263,19 +267,19 @@ class Themes extends DB
 			            {
 				            $value = "<img src='".htmlentities($file[$cle]['value'])."' style='max-width: 100%; max-height: 100%'/>";
 			            }
-		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' style='padding: 0; margin-bottom: 15px' type='file' name='file[$lang][$cle]'/><input type='hidden' value='".htmlentities($file[$cle]['value'])."' name='input[$lang][$key][$cle]'/>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><input class='col-md-12' style='padding: 0; margin-bottom: 15px' type='file' name='file[$lang][$cle]'/><input type='hidden' value='".htmlentities($file[$cle]['value'])."' name='input[$lang][$key][$cle]'/>";
 		                echo "<div class='col-md-12' style='padding: 0; max-height: 300px'>$value</div>";
 		                
 		            }
 		            if($champs['type'] == "video")
 		            {
-		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' style='padding: 0; margin-bottom: 15px;' type='file' name='file[$lang][$cle]'/><input type='hidden' value='".htmlentities($file[$cle]['value'])."' name='input[$lang][$key][$cle]'/>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><input class='col-md-12' style='padding: 0; margin-bottom: 15px;' type='file' name='file[$lang][$cle]'/><input type='hidden' value='".htmlentities($file[$cle]['value'])."' name='input[$lang][$key][$cle]'/>";
 		                echo "<video class='col-md-12' muted autoplay loop style='padding: 0; max-height: 300px' src='".htmlentities($file[$cle]['value'])."'></video>";
 		                
 		            }
 		            if($champs['type'] == "text")
 		            {
-		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' type='text' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><input class='col-md-12' type='text' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
 		            }
 		            if($champs['type'] == "bool")
 		            {
@@ -288,22 +292,23 @@ class Themes extends DB
 			            {
 				            $checked = "<option value='on'>Oui</option><option selected value='off'>Non</option>";
 			            }
-		                echo "<label class='col-md-12'>$cle</label><select class='col-md-12' type='checkbox' name='input[$lang][$key][$cle]'>$checked</select>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><select class='col-md-12' type='checkbox' name='input[$lang][$key][$cle]'>$checked</select>";
 		            }
 		            if($champs['type'] == "textarea")
 		            {
-		                echo "<label class='col-md-12'>$cle</label><textarea class='col-md-12' name='input[$lang][$key][$cle]'>".htmlentities($file[$cle]['value'])."</textarea>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><textarea class='col-md-12' name='input[$lang][$key][$cle]'>".htmlentities($file[$cle]['value'])."</textarea>";
 		            }
 		            if($champs['type'] == "email")
 		            {
-		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' type='email' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><input class='col-md-12' type='email' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
 		            }
 		            if($champs['type'] == "color")
 		            {
-		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' type='color' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
+		                echo "<label class='col-md-12'>".$champs['label']."</label><input class='col-md-12' type='color' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
 		            }
 		            
 		            echo "<input type='hidden' value='".$champs['type']."' name='type[$lang][$key][$cle]'/>";
+		            echo "<input type='hidden' value=\"".$champs['label']."\" name='label[$lang][$key][$cle]'/>";
 		            
 		        }
 		        echo "</div>";
