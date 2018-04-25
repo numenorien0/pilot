@@ -74,7 +74,7 @@ $(function(){
 	
 	$('.view').click(function(){
 		var id = $(this).attr('data-id');
-		var win = window.open('../fr/'+id+'/preview.html', '_blank');
+		var win = window.open('../fr/'+id+'/', '_blank');
 		win.focus();
 	})
 	

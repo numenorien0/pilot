@@ -433,7 +433,7 @@ class listContent extends DB
 			{
 				$online = "<div class='offline'></div>";
 			}
-			$viewBtn = "<div class='btnDel' style='display: inline-block; float: left'><div data-id='".$donnees['ID']."' class='view' style='line-height: 0px; margin-top: 2px; padding: 2px !important'><img style='height: 20px; margin-top: 2px;' src='images/eye.png'/></div></div>";
+			$viewBtn = "<div class='btnDel' style='display: inline-block; float: left'><div data-id='".$donnees['nameURL']."' class='view' style='line-height: 0px; margin-top: 2px; padding: 2px !important'><img style='height: 20px; margin-top: 2px;' src='images/eye.png'/></div></div>";
 			echo "<div data-order='".$donnees['orderID']."' data-parent='".$donnees['parent']."' class='$classe ligne visiblePage row'><div ".$IDAlias." data-id='".$IDAction."' contextmenu='$context' class='$classeAlias openRepertoire col-sm-9 col-md-9 col-lg-9 titre'>".$online.$iconeBefore.strip_tags($donnees['nom']).$homepage.$alias."</div><div class='actionPages col-sm-3 col-md-3 col-lg-3'>".$viewBtn."<div class='col-sm-7'><div data-id='".$IDAction."' class='edit'>Afficher les blocs</div></div><div class='col-sm-4 hidden'><div data-id='".$donnees['ID']."' class='child'>Répertoire</div></div>".$deleteBtn."</div></div>";
 		}
 		
