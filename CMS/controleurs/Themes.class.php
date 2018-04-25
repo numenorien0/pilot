@@ -277,6 +277,19 @@ class Themes extends DB
 		            {
 		                echo "<label class='col-md-12'>$cle</label><input class='col-md-12' type='text' value=\"".htmlentities($file[$cle]['value'])."\" name='input[$lang][$key][$cle]'/>";
 		            }
+		            if($champs['type'] == "bool")
+		            {
+			            
+			            if(htmlentities($file[$cle]['value']) === "on")
+			            {
+				            $checked = "<option value='on' selected>Oui</option><option value='off'>Non</option>";
+			            }
+			            else
+			            {
+				            $checked = "<option value='on'>Oui</option><option selected value='off'>Non</option>";
+			            }
+		                echo "<label class='col-md-12'>$cle</label><select class='col-md-12' type='checkbox' name='input[$lang][$key][$cle]'>$checked</select>";
+		            }
 		            if($champs['type'] == "textarea")
 		            {
 		                echo "<label class='col-md-12'>$cle</label><textarea class='col-md-12' name='input[$lang][$key][$cle]'>".htmlentities($file[$cle]['value'])."</textarea>";
