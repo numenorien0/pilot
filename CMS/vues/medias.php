@@ -64,6 +64,8 @@
         	}
         }
         
+        
+        
         $(document).on("click", ".selectLang", function(){
         	$('*[data-lang]').hide();
         	$('.activeLang').removeClass("activeLang");
@@ -84,9 +86,18 @@
                             <h3>#bibliothèque</h3>
                             <div id='dropfile' class='library'>
 	                            <div class='result'>
+		                            <div class='row'>
+			                           <div class='col-md-12'>
+				                            Afficher les éléments de 
+				                            <input id='monthChoose' type='month' value='<?=date("Y-m")?>'/>
+			                           </div>
+		                            </div>
 		                            <div class='row listFile' style='padding: 0'>
 		                            <?php 
-			                            $images = $medias->get_medias("intermediate");
+			                            $date = date("m/01/Y");
+			                            $date = strtotime($date);
+			                            
+			                            $images = $medias->get_medias($date, "intermediate");
 			                            if($images == "none")
 			                            {
 				                            ?>

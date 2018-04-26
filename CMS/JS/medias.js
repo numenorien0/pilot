@@ -110,6 +110,48 @@ $(function(){
 			_("status").innerHTML = "Upload abandonné";
 		}
 		
+		$('#monthChoose').change(function(){
+			var value = $(this).val();
+			$('.listFile').html("");
+	        $.ajax({
+				url: "ajax/photo_upload.php",
+				data:{
+					action: "list",
+					date: value
+				},
+				dataType: "json",
+				complete: function(xhr, textStatus) {
+			        
+			        if(xhr.status == 201)
+			        {
+				        $(".listFile").html("<div class='noMedia'>Pas de médias, glissez des images ici pour commencer</div>");
+			        }
+			    }
+				
+			}).done(function(json){
+				
+				$.each(json, function(i,v){
+				    
+					if(!$("div[data-id='"+v['ID']+"']").length)
+					{
+					    //alert(v['file']);
+					    if(v['type'] !== "video")
+					    {
+					        var html = "<div class='imageLibraryContainer col-md-2'><div class='col-md-12 imageLibrary' data-alt='"+v["alt"]+"' data-id='"+v['ID']+"' data-type='"+v['type']+"' data-parent='"+v['parent']+"' data-src='"+v['file']+"' style='background-image: url("+v['file']+"); background-size: cover; background-position: center;'></div></div>";
+					    }
+					    else{
+					        
+					        var html = "<div class='imageLibraryContainer col-md-2' style='overflow: hidden'><div class='col-md-12 imageLibrary' style='overflow: hidden' data-alt='"+v["alt"]+"' data-id='"+v['ID']+"' data-type='"+v['type']+"' data-parent='"+v['ID']+"' data-src='"+v['file']+"' style='background-image: url("+v['file']+"); background-size: cover; background-position: center;'><video style='Object-fit: cover; width: 100%; height: 100%' src='"+v['file']+"'  muted loop></video></div></div>";
+					    }
+						$(html).prependTo(".listFile");
+					}
+				})
+				
+				
+				
+			})
+        })
+		
 		function listPhoto()
 		{
 			$.ajax({

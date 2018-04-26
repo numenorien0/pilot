@@ -19,12 +19,27 @@ if(1)
 	
 	if(isset($_GET['action']) AND $_GET['action'] == "list")
 	{
-		$liste = $medias->get_medias("intermediate");
+		//$date = date("01 - ")
+		if(isset($_GET['date']))
+		{
+			$date = $_GET['date'];
+			$date = strtotime($date);
+		}
+		else
+		{
+			$date = date("m/01/Y");
+			$date = strtotime($date);
+		}
+		$liste = $medias->get_medias($date, "intermediate");
 		
 		if($liste != "none")
 		{
 			$liste = json_encode($liste);
 			echo $liste;
+		}
+		else
+		{
+			http_response_code(201);
 		}
 		
 	}
